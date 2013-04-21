@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+
+import random
+
+with open('weird-fortunes') as f:
+    lines = f.read().split('%')
+    lines = [line.strip('\n') for line in lines]
+    print random.choice(lines)
