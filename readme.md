@@ -11,4 +11,11 @@ cd weirdfortune
 ./install.sh
 ```
 
+## Usage
+
+```sh
+$ weirdfortune
+@thrillbo: dont hate me because i'm beautiful, hate me what you can do for your country
+```
+
 [fortune]: http://en.wikipedia.org/wiki/Fortune_(Unix)
