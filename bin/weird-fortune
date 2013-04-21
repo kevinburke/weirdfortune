@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
+import os
 import random
 
-with open('weird-fortunes') as f:
-    lines = f.read().split('\n%\n')
-    print random.choice(lines)
+current_path = os.path.realpath(__file__)
+f = open('%s/../../games/weird-fortunes/weird-fortunes' % current_path)
+lines = f.read().split('\n%\n')
+print random.choice(lines).strip('\n')
+f.close()
