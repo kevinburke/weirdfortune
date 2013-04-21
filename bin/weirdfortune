@@ -4,7 +4,7 @@ import os
 import random
 
 current_path = os.path.realpath(__file__)
-f = open('%s/../../games/weird-fortunes/weird-fortunes' % current_path)
+f = open('%s/../../games/weirdfortunes/weirdfortunes' % current_path)
 lines = f.read().split('\n%\n')
 print random.choice(lines).strip('\n')
 f.close()
