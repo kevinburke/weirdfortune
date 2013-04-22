@@ -1,10 +1,35 @@
 #!/usr/bin/env python
 
+from optparse import OptionParser
 import os
 import random
+import sys
+
+parser = OptionParser()
+parser.add_option("-a", "--all", dest="all_fortunes", action="store_true",
+                  help="Display all fortunes, including NSFW fortunes")
+parser.add_option("-c", "--no-color", dest="no_color", action="store_true",
+                  help="Don't use ANSI color codes to display tweets")
+
+(options, args) = parser.parse_args()
 
 current_path = os.path.realpath(__file__)
 f = open('%s/../../games/weirdfortunes/weirdfortunes' % current_path)
 lines = f.read().split('\n%\n')
-print random.choice(lines).strip('\n')
 f.close()
+if options.all_fortunes:
+    f = open('%s/../../games/weirdfortunes/nsfwweirdfortunes' % current_path)
+    lines.append(f.read().split('\n%\n'))
+    f.close()
+
+line = random.choice(lines).strip('\n')
+
+if not options.no_color:
+    user, tweet = line.split(':', 1)
+    sys.stdout.write("\033[0;31m" + user + "\033[0m")
+    sys.stdout.write(':')
+    sys.stdout.write("\033[0;34m" + tweet + "\033[0m")
+    sys.stdout.write("\n")
+
+else:
+    print line
