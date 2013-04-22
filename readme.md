@@ -15,6 +15,8 @@ cd weirdfortune
 
 ```sh
 $ weirdfortune
+```
+```
 @thrillbo: dont hate me because i'm beautiful, hate me what you can do for your country
 ```
 
