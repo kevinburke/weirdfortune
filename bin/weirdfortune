@@ -27,8 +27,8 @@ line = random.choice(lines).strip('\n')
 if not options.no_color:
     user, tweet = line.split(':', 1)
     sys.stdout.write("\033[0;31m" + user + "\033[0m")
-    sys.stdout.write(':')
-    sys.stdout.write("\033[0;34m" + tweet + "\033[0m")
+    sys.stdout.write('\n')
+    sys.stdout.write("\033[0;34m" + tweet.lstrip(' ') + "\033[0m")
     sys.stdout.write("\n")
 
 else:
