@@ -1,4 +1,6 @@
 import pprint
+import sys
+import HTMLParser
 
 from clint.textui import colored
 import tweepy
@@ -42,10 +44,8 @@ args = parser.parse_args()
 print args
 
 def main():
-    import sys
-    import HTMLParser
     h = HTMLParser.HTMLParser()
-    oldest_id = long(args.id) or sys.maxint
+    oldest_id = long(args.id) if args.id else sys.maxint
     try:
         for item in tweepy.Cursor(api.user_timeline).items(2000):
             if item.id >= oldest_id:
