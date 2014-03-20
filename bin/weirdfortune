@@ -11,16 +11,21 @@ parser.add_option("-a", "--all", dest="all_fortunes", action="store_true",
 parser.add_option("-c", "--no-color", dest="no_color", action="store_true",
                   help="Don't use ANSI color codes to display tweets")
 
-(options, args) = parser.parse_args()
+options, args = parser.parse_args()
+
+def get_fortune_path(current_file, fortune_file):
+    relpath = os.path.join(current_file, os.pardir, os.pardir, 'games', 'weirdfortunes', fortune_file)
+    path = os.path.abspath(relpath)
+    return path
+
 
 current_path = os.path.realpath(__file__)
-f = open('%s/../../games/weirdfortunes/weirdfortunes' % current_path)
-lines = f.read().split('\n%\n')
-f.close()
+with open(get_fortune_path(current_path, 'weirdfortunes')) as f:
+    lines = f.read().split('\n%\n')
+
 if options.all_fortunes:
-    f = open('%s/../../games/weirdfortunes/nsfwweirdfortunes' % current_path)
-    lines.append(f.read().split('\n%\n'))
-    f.close()
+    with open(get_fortune_path(current_path, 'nsfwweirdfortunes')) as f:
+        lines.append(f.read().split('\n%\n'))
 
 line = random.choice(lines).strip('\n')
 
