@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"go/build"
 	"log"
+	"os"
 	"pkg/text/template"
 )
 
@@ -14,9 +16,12 @@ func main() {
 		log.Fatalf("Usage: weirdfortune -all")
 	}
 
-	f, err := template.ParseFiles("github.com/kevinburke/weirdfortune/games/weirdfortunes/weirdfortunes")
+	fmt.Println(build.Default.GOPATH)
+	wd, err := os.Getwd()
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
-	fmt.Println(f.Name())
+	fmt.Println(wd)
+	template.Must(template.ParseFiles("games/weirdfortunes/weirdfortunes"))
+
 }
