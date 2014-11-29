@@ -27,7 +27,13 @@ if options.all_fortunes:
     with open(get_fortune_path(current_path, 'nsfwweirdfortunes')) as f:
         lines.append(f.read().split('\n%\n'))
 
-line = random.choice(lines).strip('\n')
+try:
+    w_nl = random.choice(lines)
+    line = w_nl.strip('\n')
+except AttributeError:
+    print w_nl
+    print lines
+    raise
 
 if not options.no_color:
     user, tweet = line.split(':', 1)
