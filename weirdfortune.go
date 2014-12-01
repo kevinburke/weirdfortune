@@ -1,27 +1,28 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
-	"go/build"
 	"log"
 	"os"
-	"pkg/text/template"
+	"path/filepath"
 )
 
 func main() {
 	_ = flag.Bool("all", false, "Display all fortunes including NSFW ones")
+	directory := flag.String("directory", "/usr/local/games", "Path to the games folder")
 	flag.Parse()
 	if len(flag.Args()) > 0 {
 		log.Fatalf("Usage: weirdfortune -all")
 	}
 
-	fmt.Println(build.Default.GOPATH)
-	wd, err := os.Getwd()
+	f, err := os.Open(filepath.Join(*directory, "weirdfortunes", "weirdfortunes"))
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
-	fmt.Println(wd)
-	template.Must(template.ParseFiles("games/weirdfortunes/weirdfortunes"))
-
+	fmt.Println(f.Name())
+	b := new(bytes.Buffer)
+	b.ReadFrom(f)
+	fmt.Println(b.String())
 }
