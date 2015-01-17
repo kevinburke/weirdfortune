@@ -11,7 +11,7 @@ $HOME/bin
 
 for dir in $PATHDIRS
 do
-    if [ `echo $PATH | grep $dir` ]; then
+    if [ "`echo $PATH | grep $dir`" ]; then
         cp -rvf "$FILEDIR/bin" "$FILEDIR/games" $dir
         break
     fi
