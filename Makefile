@@ -1,10 +1,10 @@
-.PHONY: install venv clean
+.PHONY: install clean
 
-venv:
-	virtualenv venv
+install:
+	go get -u github.com/jteeuwen/go-bindata/...
 
-install: venv
-	. venv/bin/activate; python setup.py install
+data:
+	go-bindata -o fortunes.go games/weirdfortunes
 
-clean: 
-	rm -rf venv
+build:
+	go build ./...

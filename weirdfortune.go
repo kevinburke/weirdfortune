@@ -3,49 +3,41 @@ package main
 import (
 	"bytes"
 	"flag"
+	"fmt"
 	"log"
 	"math/rand"
-	"os"
-	"path/filepath"
 	"strings"
 	"time"
 )
 
+func checkError(err error) {
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+}
+
 func main() {
 	all := flag.Bool("all", false, "Display all fortunes including NSFW ones")
-	directory := flag.String("directory", "/usr/local/games", "Path to the games folder")
 	flag.Parse()
 	if len(flag.Args()) > 0 {
 		log.Fatalf("Usage: weirdfortune [-all] [-directory DIRECTORY] ")
 	}
 
-	f, err := os.Open(filepath.Join(*directory, "weirdfortunes", "weirdfortunes"))
-	if err != nil {
-		log.Fatalf(err.Error())
-	}
-	b := new(bytes.Buffer)
-	b.ReadFrom(f)
-
+	bits, err := Asset("games/weirdfortunes/weirdfortunes")
+	checkError(err)
 	if *all {
-		b.WriteString("%\n")
-		f, err = os.Open(filepath.Join(*directory, "weirdfortunes", "nsfwweirdfortunes"))
-		if err != nil {
-			log.Fatalf(err.Error())
-		}
-		b.ReadFrom(f)
+		nsfwbits, err := Asset("games/weirdfortunes/nsfwweirdfortunes")
+		checkError(err)
+		bits = append(bits, nsfwbits...)
 	}
+
 	// XXX: remove duplicates
-	tweets := strings.Split(b.String(), "\n%\n")
+	tweets := bytes.Split(bits, []byte("\n%\n"))
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	choice := r.Intn(len(tweets))
-	usertweet := strings.SplitN(tweets[choice], ": ", 2)
+	usertweet := strings.SplitN(string(tweets[choice]), ": ", 2)
 
-	os.Stdout.WriteString("\033[0;31m")
-	os.Stdout.WriteString(usertweet[0])
-	os.Stdout.WriteString("\033[0m")
-	os.Stdout.WriteString("\n")
-	os.Stdout.WriteString("\033[0;34m")
-	os.Stdout.WriteString(usertweet[1])
-	os.Stdout.WriteString("\033[0m")
-	os.Stdout.WriteString("\n")
+	out := fmt.Sprintf("\x1b[0;31m%s\x1b[0m\n"+
+		"\x1b[0;34m%s\x1b[0m", usertweet[0], usertweet[1])
+	fmt.Println(out)
 }
