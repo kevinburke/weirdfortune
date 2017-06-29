@@ -57,6 +57,8 @@ def main():
             tweet = h.unescape(item.retweeted_status.text)
             if 'http://' in tweet:
                 continue
+            if 'https://' in tweet:
+                continue
             if username == 'fanfiction_txt':
                 continue
             print colored.red('@{}'.format(username))
