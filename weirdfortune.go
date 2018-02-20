@@ -5,9 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"math/rand"
+	"math/big"
+	mrand "math/rand"
 	"strings"
-	"time"
+
+	"github.com/golang/go/src/crypto/rand"
 )
 
 func checkError(err error) {
@@ -33,7 +35,10 @@ func main() {
 
 	// XXX: remove duplicates
 	tweets := bytes.Split(bits, []byte("\n%\n"))
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	n, err := rand.Int(rand.Reader, big.NewInt(2^32-1))
+	checkError(err)
+
+	r := mrand.New(mrand.NewSource(n.Int64()))
 	choice := r.Intn(len(tweets))
 	usertweet := strings.SplitN(string(tweets[choice]), ": ", 2)
 
