@@ -2,14 +2,13 @@ package main
 
 import (
 	"bytes"
+	"crypto/rand"
 	"flag"
 	"fmt"
 	"log"
 	"math/big"
 	mrand "math/rand"
 	"strings"
-
-	"github.com/golang/go/src/crypto/rand"
 )
 
 func checkError(err error) {
