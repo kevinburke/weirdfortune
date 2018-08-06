@@ -34,7 +34,8 @@ func main() {
 
 	// XXX: remove duplicates
 	tweets := bytes.Split(bits, []byte("\n%\n"))
-	n, err := rand.Int(rand.Reader, big.NewInt(2^32-1))
+	i := big.NewInt(2<<32 - 1)
+	n, err := rand.Int(rand.Reader, i)
 	checkError(err)
 
 	r := mrand.New(mrand.NewSource(n.Int64()))
