@@ -21,7 +21,7 @@ import (
 func bindataRead(data []byte, name string) ([]byte, error) {
 	gz, err := gzip.NewReader(bytes.NewBuffer(data))
 	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
+		return nil, fmt.Errorf("read %q: %v", name, err)
 	}
 
 	var buf bytes.Buffer
@@ -29,7 +29,7 @@ func bindataRead(data []byte, name string) ([]byte, error) {
 	clErr := gz.Close()
 
 	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
+		return nil, fmt.Errorf("read %q: %v", name, err)
 	}
 	if clErr != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func gamesWeirdfortunesNsfwweirdfortunes() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "games/weirdfortunes/nsfwweirdfortunes", size: 5486, mode: os.FileMode(420), modTime: time.Unix(1481146908, 0)}
+	info := bindataFileInfo{name: "games/weirdfortunes/nsfwweirdfortunes", size: 5486, mode: os.FileMode(0644), modTime: time.Unix(1544307571, 0)}
 	a := &asset{bytes: bytes, info: info, digest: [32]uint8{0xb9, 0xc4, 0x1, 0x2b, 0x40, 0xe0, 0x46, 0xf8, 0x56, 0xf7, 0x4f, 0x9a, 0xd4, 0xfc, 0x90, 0x1b, 0xae, 0x46, 0x13, 0x84, 0x6f, 0xf6, 0x95, 0xf1, 0x44, 0x3f, 0x2c, 0x7c, 0x37, 0xcc, 0x2d, 0x30}}
 	return a, nil
 }
@@ -105,7 +105,7 @@ func gamesWeirdfortunesWeirdfortunes() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "games/weirdfortunes/weirdfortunes", size: 208971, mode: os.FileMode(420), modTime: time.Unix(1498760262, 0)}
+	info := bindataFileInfo{name: "games/weirdfortunes/weirdfortunes", size: 208971, mode: os.FileMode(0644), modTime: time.Unix(1544307571, 0)}
 	a := &asset{bytes: bytes, info: info, digest: [32]uint8{0x8, 0x85, 0x4e, 0x71, 0x5d, 0x10, 0xbc, 0xd8, 0x5f, 0xf, 0x22, 0x8, 0x80, 0xed, 0x6a, 0xfb, 0xef, 0xf, 0x88, 0x44, 0x82, 0xdc, 0x96, 0x5b, 0xc2, 0xc4, 0x2c, 0xaa, 0x47, 0xcf, 0xf9, 0x73}}
 	return a, nil
 }
