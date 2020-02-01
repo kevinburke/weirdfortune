@@ -3,7 +3,7 @@
 // games/weirdfortunes/nsfwweirdfortunes (5.486kB)
 // games/weirdfortunes/weirdfortunes (208.973kB)
 
-package main
+package weirdfortune
 
 import (
 	"bytes"
@@ -202,8 +202,7 @@ func AssetNames() []string {
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
 	"games/weirdfortunes/nsfwweirdfortunes": gamesWeirdfortunesNsfwweirdfortunes,
-
-	"games/weirdfortunes/weirdfortunes": gamesWeirdfortunesWeirdfortunes,
+	"games/weirdfortunes/weirdfortunes":     gamesWeirdfortunesWeirdfortunes,
 }
 
 // AssetDir returns the file names below a certain
