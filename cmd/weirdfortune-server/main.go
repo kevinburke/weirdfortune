@@ -26,12 +26,13 @@ const tplString = `<!doctype html>
 
     <title>weirdfortune</title>
   </head>
-  <body>
-	<div class="container">
+  <body style="background-color: #0d47a1;">
+	<div style="margin-top: 30px;" class="container">
 		<br />
 		<div class="row">
-		<div class="col-md-5 offset-md-3">
+		<div style="background-color: white; padding-top: 10px; border-radius: 5px;" class="col-md-5 offset-md-3">
 			<h3>{{ .Author }}</h3>
+			<br />
 			<p style="font-size: 1.5rem">{{ .Body }}</p>
 		</div>
 	</div>
