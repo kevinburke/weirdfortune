@@ -2,11 +2,11 @@ package main
 
 import (
 	"flag"
+	"html/template"
 	"log"
 	"net"
 	"net/http"
 	"strings"
-	"text/template"
 
 	"github.com/kevinburke/handlers"
 	weirdfortune "github.com/kevinburke/weirdfortune/lib"
@@ -42,7 +42,7 @@ const tplString = `<!doctype html>
 
 type tplData struct {
 	Author string
-	Body   string
+	Body   template.HTML
 }
 
 func main() {
@@ -63,7 +63,8 @@ func main() {
 			panic(err)
 		}
 		usertweet := strings.SplitN(choice, ": ", 2)
-		tpl.Execute(w, tplData{Author: usertweet[0], Body: usertweet[1]})
+		body := strings.Replace(usertweet[1], "\n", "<br />", -1)
+		tpl.Execute(w, tplData{Author: usertweet[0], Body: template.HTML(body)})
 	})
 	handlers.Logger.Info("Started server", "addr", addr)
 	http.Serve(ln, handlers.Log(handlers.Server(mux, "weirdfortune/0.1")))
