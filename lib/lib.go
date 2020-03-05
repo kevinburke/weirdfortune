@@ -12,6 +12,9 @@ var seedOnce sync.Once
 var r *mrand.Rand
 var randErr error
 var tweets [][]byte
+var perm []int
+var i int
+var mu sync.Mutex
 
 func Fortune() (string, error) {
 	seedOnce.Do(func() {
@@ -34,10 +37,19 @@ func Fortune() (string, error) {
 		}
 		bits = append(bits, nsfwbits...)
 		tweets = bytes.Split(bits, []byte("\n%\n"))
+		perm = r.Perm(len(tweets))
 	})
 	if randErr != nil {
 		return "", randErr
 	}
-	choice := r.Intn(len(tweets))
+
+	mu.Lock()
+	defer mu.Unlock()
+	choice := perm[i]
+	i++
+	if i >= len(perm) {
+		i = 0
+		perm = r.Perm(len(tweets))
+	}
 	return string(tweets[choice]), nil
 }
