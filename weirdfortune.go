@@ -22,6 +22,9 @@ func main() {
 		log.Fatal(err)
 	}
 	usertweet := strings.SplitN(choice, ": ", 2)
+	if len(usertweet) < 2 {
+		fmt.Printf("incorrectly formatted tweet: %v\n", choice)
+	}
 
 	out := fmt.Sprintf("\x1b[0;31m%s\x1b[0m\n"+
 		"\x1b[0;34m%s\x1b[0m", usertweet[0], usertweet[1])
